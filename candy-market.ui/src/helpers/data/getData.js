@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const baseUrl = "http://localhost:60640";
 
-const getallcandies = () => new promise((resolve, reject) => 
+const getallCandies = () => new Promise((resolve, reject) => 
     axios.get(`${baseUrl}/candy`)
         .then((response) => 
             resolve(response.data) 
@@ -15,5 +15,5 @@ const getallcandies = () => new promise((resolve, reject) =>
 
 );
 
-export default { getallcandies } 
+export default { getallCandies } 
 

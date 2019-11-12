@@ -33,12 +33,41 @@ namespace CandyMarket.Api.Repositories
 
         public bool AddCandy(AddCandyDto newCandy)
         {
-            throw new NotImplementedException();
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"
+                            Insert into Candy
+                            ([Name],[candytypeId],[Candyflavor])
+                            output inserted.*
+                            values (@name,@candytypeid,@candyflavor)";
+                return db.Execute(sql, newCandy) == 1;
+            }
         }
 
         public bool EatCandy(int candyIdToDelete)
         {
-            throw new NotImplementedException();
+           using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"delete
+                            from Candy
+                            where [id] = @candyIdToDelete";
+
+                return db.Execute(sql, new { candyIdToDelete }) >= 1;
+
+            }
+        }
+
+        public bool UpdateCandy(int candyIdToUpdate)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"update Candy
+                            set [Name] = @name,
+                                [candyflavor] = @candyflavor
+                                where [id] = @candyIdToDelete";
+                return db.Execute(sql, new { candyIdToUpdate }) == 1;
+
+            }
         }
     }
 }
